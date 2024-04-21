@@ -11,15 +11,19 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "preserve",
 
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "outDir": "dist",
+    "declaration": true,
+    "emitDeclarationOnly": true,
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "exclude": ["src/App.vue", "src/main.ts", ".vscode"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
