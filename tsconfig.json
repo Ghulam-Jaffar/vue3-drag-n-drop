@@ -24,6 +24,6 @@
     "emitDeclarationOnly": true,
   },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"],
-  "exclude": ["src/App.vue", "src/main.ts"],
+  "exclude": ["src/App.vue", "src/main.ts", ".vscode"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

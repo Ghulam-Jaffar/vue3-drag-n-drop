@@ -1,6 +1,6 @@
 # Vue3DragNDrop
 
-// description?
+Vue3DragNDrop is a Vue 3 library that enables drag and drop functionality within lists, allowing for both reordering and swapping of elements.
 
 ## Features
 
@@ -41,14 +41,14 @@ Pass in the array to v-model (items in the given example). Handle the UI by maki
 
 ### Props
 
-- modelValue: (to be passed in v-model): (Array) The array of items to be displayed and manipulated through drag and drop.
-- reorder: (Boolean, default: true) Enable/disable reordering functionality.
-- swap: (Boolean, default: false) Enable/disable swapping functionality.
-- class: (String, default: "") Additional CSS class to be applied to the container element.
+- `modelValue`: (to be passed in` v-model`): (Array) The array of items to be displayed and manipulated through drag and drop.
+- `reorder`: (Boolean, default: true) Enable/disable reordering functionality.
+- `swap`: (Boolean, default: false) Enable/disable swapping functionality.
+- `class`: (String, default: "") Additional CSS class to be applied to the container element.
 
 ### Events
 
-- dragStart: Emitted when a drag operation starts. Receives the DragEvent and the index of the dragged item.
-- dragOver: Emitted when an item is dragged over another item. Receives the DragEvent and the index of the item being dragged over.
-- drop: Emitted when an item is dropped. Receives the DragEvent and the index where the item is dropped.
-- dragEnd: Emitted when a drag operation ends. Receives the DragEvent and the index of the dragged item.
+- `dragStart`: Emitted when a drag operation starts. Receives the DragEvent and the index of the dragged item.
+- `dragOver`: Emitted when an item is dragged over another item. Receives the DragEvent and the index of the item being dragged over.
+- `drop`: Emitted when an item is dropped. Receives the DragEvent and the index where the item is dropped.
+- `dragEnd`: Emitted when a drag operation ends. Receives the DragEvent and the index of the dragged item.
