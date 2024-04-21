@@ -1,6 +1,6 @@
 {
   "name": "vue3-drag-n-drop",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "description": "Vue 3 drag and drop component",
   "license": "MIT",
   "type": "module",
