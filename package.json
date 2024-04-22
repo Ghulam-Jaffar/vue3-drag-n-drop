@@ -7,6 +7,13 @@
   "files": [
     "dist"
   ],
+  "keywords": [
+    "vue",
+    "vue3-dnd",
+    "vue3-drag-drop",
+    "vue3-reorder",
+    "vue3-swap"
+  ],
   "main": "./dist/vue3-drag-n-drop.es.js",
   "module": "./dist/vue3-drag-n-drop.js",
   "exports": {
