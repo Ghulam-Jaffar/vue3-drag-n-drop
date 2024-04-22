@@ -16,6 +16,10 @@
     },
     "./style.css": "./dist/style.css"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ghulam-Jaffar/vue3-drag-n-drop.git"
+  },
   "types": "./dist/index.d.ts",
   "scripts": {
     "dev": "vite",
