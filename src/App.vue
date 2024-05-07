@@ -1,78 +1,51 @@
 <script setup lang="ts">
-import { ref } from "vue";
-import Draggable from "./components/Draggable.vue";
-
-const items = ref([
-  // create 10 image items using src from unsplash
-  {
-    src: "https://source.unsplash.com/random/800x600",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x601",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x602",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x603",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x604",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x605",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x606",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x607",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x608",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x609",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x610",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x611",
-  },
-]);
-
-const handleDragStart = (event: DragEvent, index: number) => {
-  console.log("drag start", index, event);
-};
-
-const handleDragOver = (event: DragEvent, index: number) => {
-  console.log("drag over", index, event);
-};
-
-const handleDrop = (event: DragEvent, index: number) => {
-  console.log("drop", index, event);
-};
+import SortImages from "./components/SortImages.vue";
+import SwapImages from "./components/SwapImages.vue";
+import SortNumericList from "./components/SortNumericList.vue";
+import SwapNumericList from "./components/SwapNumericList.vue";
 </script>
 
 <template>
-  <Draggable
-    v-model="items"
-    class="container"
-    @drag-start="handleDragStart"
-    @drag-over="handleDragOver"
-    @drop="handleDrop"
-  >
-    <template v-slot="{ item }">
-      <img :src="item.src" alt="item" width="200" height="200" />
-    </template>
-  </Draggable>
+  <main>
+    <header>
+      <h1 class="text-6xl text-center mt-10">Vue3-drag-n-drop</h1>
+    </header>
+    <section>
+      <h2 class="text-4xl text-left mb-2">Sort</h2>
+      <SortImages />
+    </section>
+    <section>
+      <h2 class="text-4xl text-left mb-2 mt-10">Swap</h2>
+      <SwapImages />
+    </section>
+    <div class="flex flex-wrap justify-between">
+      <section>
+        <h2 class="text-4xl text-left mb-2 mt-10">List Sort</h2>
+        <SortNumericList />
+      </section>
+      <section>
+        <h2 class="text-4xl text-left mb-2 mt-10">List Swap</h2>
+        <SwapNumericList />
+      </section>
+    </div>
+  </main>
 </template>
 
 <style>
-.container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.drag-target {
+  background-color: rgba(0, 0, 0, 0.1);
+  outline: 4px dashed #f56565;
+  outline-offset: 4px;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+}
+
+.drop-target {
+  background-color: rgba(0, 0, 0, 0.1);
+  outline: 4px dashed #4299e1;
+  outline-offset: 4px;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
 }
 </style>
+
