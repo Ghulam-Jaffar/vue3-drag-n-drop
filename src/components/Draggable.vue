@@ -45,6 +45,12 @@ const startItem = ref<Element | null>(null);
 const startIndex = ref<number | null>(null);
 const prevItem = ref<Element | null>(null);
 
+const resetClasses = (event: DragEvent) => {
+  event.target && (event.target as HTMLElement).classList.remove(props.dropClass);
+  startItem.value?.classList.remove(props.dragClass);
+  prevItem.value?.classList.remove(props.dropClass);
+};
+
 const handleDragStart = (event: DragEvent, index: number) => {
   event.dataTransfer!.setData("text/plain", index.toString());
   let target = event.target as HTMLElement;
@@ -96,11 +102,14 @@ const handleDrop = (event: DragEvent, index: number) => {
   }
 
   //  Clearing the classes
-  target?.classList.remove(props.dropClass)
-  startItem.value?.classList.remove(props.dragClass);
-
- 
+  resetClasses(event);
 };
+
+const handleDragEnd = (event: DragEvent, index: number) => {
+  resetClasses(event); 
+  emit("dragEnd", event, index);
+};
+
 </script>
 
 <template>
@@ -111,7 +120,7 @@ const handleDrop = (event: DragEvent, index: number) => {
         @dragstart="handleDragStart($event, index)"
         @dragover="handleDragOver($event, index)"
         @drop="handleDrop($event, index)"
-        @dragend="$emit('dragEnd', $event, index)"
+        @dragend="handleDragEnd($event, index)"
       >
         <slot :item="item"></slot>
       </div>
