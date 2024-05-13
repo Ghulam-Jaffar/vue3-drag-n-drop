@@ -35,6 +35,12 @@ const props = defineProps({
 //   }
 // );
 
+const resetClasses = (event: DragEvent) => {
+  event.target && (event.target as HTMLElement).classList.remove(props.dropClass);
+  startItem.value?.classList.remove(props.dragClass);
+  prevItem.value?.classList.remove(props.dropClass);
+};
+
 const handleDragStart = (event: DragEvent, index: number) => {
   event.dataTransfer!.setData("text/plain", index.toString());
   emit("dragStart", event, index);
@@ -63,6 +69,12 @@ const handleDrop = (event: DragEvent, index: number) => {
     emit("update:modelValue", newItems);
   }
 };
+
+const handleDragEnd = (event: DragEvent, index: number) => {
+  resetClasses(event); 
+  emit("dragEnd", event, index);
+};
+
 </script>
 
 <template>
@@ -73,7 +85,7 @@ const handleDrop = (event: DragEvent, index: number) => {
         @dragstart="handleDragStart($event, index)"
         @dragover="handleDragOver($event, index)"
         @drop="handleDrop($event, index)"
-        @dragend="$emit('dragEnd', $event, index)"
+        @dragend="handleDragEnd($event, index)"
       >
         <slot :item="item"></slot>
       </div>
