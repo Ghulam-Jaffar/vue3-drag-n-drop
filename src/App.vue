@@ -7,7 +7,7 @@ import SwapNumericList from "./components/SwapNumericList.vue";
 
 <template>
   <main>
-    <header>
+    <header class="mb-12">
       <h1 class="text-6xl text-center mt-10">Vue3-drag-n-drop</h1>
     </header>
     <section>
