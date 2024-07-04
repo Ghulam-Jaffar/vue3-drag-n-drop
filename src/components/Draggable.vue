@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { defineProps, defineEmits, ref } from "vue";
+
 const emit = defineEmits([
   "dragStart",
   "dragOver",
@@ -9,50 +10,23 @@ const emit = defineEmits([
 ]);
 
 const props = defineProps({
-  modelValue: {
-    type: Array as () => Array<any>,
-    required: true,
-  },
-  reorder: {
-    type: Boolean,
-    default: true,
-  },
-  swap: {
-    type: Boolean,
-    default: false,
-  },
-  class: {
-    type: String,
-    default: "",
-  },
-  dragClass: {
-    type: String,
-    default: "",
-  },
-  dropClass: {
-    type: String,
-    default: "",
-  },
-  customDropHandler: {
-    type: Function,
-    default: null,
-  },
+  modelValue: { type: Array as () => Array<any>, required: true },
+  reorder: { type: Boolean, default: true },
+  swap: { type: Boolean, default: false },
+  class: { type: String, default: "" },
+  dragClass: { type: String, default: "dragging" },
+  dropClass: { type: String, default: "drop-target" },
+  customDropHandler: { type: Function, default: null },
 });
 
 const startItem = ref<Element | null>(null);
 const startIndex = ref<number | null>(null);
 const prevItem = ref<Element | null>(null);
 
-const resetClasses = (event: DragEvent) => {
-  (event.target && props.dropClass) && (event.target as HTMLElement).classList.remove(props.dropClass);
-  props.dragClass && startItem.value?.classList.remove(props.dragClass);
-  props.dropClass && prevItem.value?.classList.remove(props.dropClass);
-};
-
 const handleDragStart = (event: DragEvent, index: number) => {
   event.dataTransfer!.setData("text/plain", index.toString());
   let target = event.target as HTMLElement;
-  props.dragClass && target.classList.add(props.dragClass)
+  target.classList.add(props.dragClass);
   startItem.value = target;
   startIndex.value = index;
   emit("dragStart", event, index);
@@ -60,23 +34,17 @@ const handleDragStart = (event: DragEvent, index: number) => {
 
 const handleDragOver = (event: DragEvent, index: number) => {
   event.preventDefault();
-
-  if (!props.dropClass) return;
-
   let target = event.target as HTMLElement;
   if (startItem.value === target) {
-    prevItem.value?.classList.remove(props.dropClass)
+    prevItem.value?.classList.remove(props.dropClass);
     return;
   }
-
   if (target !== prevItem.value) {
     target.classList.add(props.dropClass);
   }
-
   if (prevItem.value && prevItem.value !== target) {
     prevItem.value?.classList.remove(props.dropClass);
   }
-
   prevItem.value = target;
   emit("dragOver", event, index);
 };
@@ -86,9 +54,14 @@ const handleDrop = (event: DragEvent, index: number) => {
   const draggedItem = props.modelValue[draggedIndex];
   emit("drop", event, index);
   let target = event.target as HTMLElement;
+  target.classList.remove(props.dropClass);
+  target.classList.add("dropped");
+  setTimeout(() => target.classList.remove("dropped"), 500);
+
   if (props.customDropHandler) {
     props.customDropHandler(startItem.value, startIndex.value, target, index);
   }
+
   if (props.swap) {
     const newItems = [...props.modelValue];
     newItems[draggedIndex] = props.modelValue[index];
@@ -101,7 +74,6 @@ const handleDrop = (event: DragEvent, index: number) => {
     emit("update:modelValue", newItems);
   }
 
-  //  Clearing the classes
   resetClasses(event);
 };
 
@@ -110,6 +82,12 @@ const handleDragEnd = (event: DragEvent, index: number) => {
   emit("dragEnd", event, index);
 };
 
+const resetClasses = (event: DragEvent) => {
+  (event.target && props.dropClass) &&
+    (event.target as HTMLElement).classList.remove(props.dropClass);
+  props.dragClass && startItem.value?.classList.remove(props.dragClass);
+  props.dropClass && prevItem.value?.classList.remove(props.dropClass);
+};
 </script>
 
 <template>
@@ -127,3 +105,32 @@ const handleDragEnd = (event: DragEvent, index: number) => {
     </template>
   </div>
 </template>
+
+<style scoped>
+.dragging {
+  opacity: 0.5;
+  transform: scale(1.1);
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.drop-target {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: background-color 0.2s;
+}
+
+.dropped {
+  animation: dropped 0.5s;
+}
+
+@keyframes dropped {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+</style>

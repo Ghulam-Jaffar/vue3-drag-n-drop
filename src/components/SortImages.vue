@@ -3,43 +3,16 @@ import {ref} from "vue";
 import Draggable from "./Draggable.vue";
 
 const sortItems = ref([
-  // create 10 image items using src from unsplash
-  {
-    src: "https://source.unsplash.com/random/800x600",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x601",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x602",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x603",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x604",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x605",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x606",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x607",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x608",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x609",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x610",
-  },
-  {
-    src: "https://source.unsplash.com/random/800x611",
-  },
+  { src: "https://random-image-pepebigotes.vercel.app/api/random-image" },
+  { src: "https://random-image-pepebigotes.vercel.app/api/random-image" },
+  { src: "https://random-image-pepebigotes.vercel.app/api/random-image" },
+  { src: "https://random-image-pepebigotes.vercel.app/api/random-image" },
+  { src: "https://random-image-pepebigotes.vercel.app/api/random-image" },
+  { src: "https://random-image-pepebigotes.vercel.app/api/random-image" },
+  { src: "https://random-image-pepebigotes.vercel.app/api/random-image" },
+  { src: "https://random-image-pepebigotes.vercel.app/api/random-image" },
+  { src: "https://random-image-pepebigotes.vercel.app/api/random-image" },
+  { src: "https://random-image-pepebigotes.vercel.app/api/random-image" },
 ]);
 
 const isDragging = ref(false);
